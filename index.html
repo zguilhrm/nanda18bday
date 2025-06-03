@@ -1,90 +1,126 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para o amor da minha vida</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Meu Amor</title>
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Arial', sans-serif;
-      background-color: #fff0f5;
+    }
+    body {
+      background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
+      justify-content: space-between;
+      padding: 40px 20px;
     }
-    .hidden { display: none; }
-    .container {
-      max-width: 90%;
+    h1 {
+      font-size: 24px;
+      margin-top: 20px;
+    }
+    p {
+      font-size: 14px;
+      margin-bottom: 40px;
+      opacity: 0.8;
     }
     button {
-      padding: 12px 24px;
-      margin-top: 20px;
+      background-color: #fff;
+      color: #ee9ca7;
       border: none;
-      background-color: #ff69b4;
-      color: white;
-      font-size: 1.2em;
-      border-radius: 10px;
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 30px;
       cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease;
     }
-    img {
-      max-width: 100%;
-      border-radius: 15px;
-      margin-top: 20px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    button:hover {
+      transform: scale(1.05);
     }
-    h1, p {
-      color: #333;
+    .hidden {
+      display: none;
+    }
+    #page2 {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .clock {
+      margin-top: 40px;
+      font-size: 18px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    .relogio {
+      width: 100px;
+      height: 100px;
+      border: 5px solid #fff;
+      border-radius: 50%;
+      margin: 20px auto;
+      position: relative;
+      animation: girar 5s linear infinite;
+    }
+    @keyframes girar {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div id="tela-inicial">
-      <h1>Oi, meu amor 💖</h1>
-      <p>Preparei algo especial pra você...</p>
-      <button onclick="mostrarProximaEtapa()">Iniciar</button>
-    </div>
+  <div id="page1">
+    <h1>Bem vinda meu amor, espero que você goste</h1>
+    <p>ainda não sou profissional, mas vou aprendendo, e fiz com carinho</p>
+    <button onclick="mostrarPagina2()">Iniciar</button>
+  </div>
 
-    <div id="etapa-1" class="hidden">
-      <p>Era uma vez... uma bebê muito especial 🍼</p>
-      <img src="https://i.imgur.com/oYiTqum.jpg" alt="Foto bebê (exemplo)">
-      <button onclick="mostrarProximaEtapa()">Próximo</button>
-    </div>
-
-    <div id="etapa-2" class="hidden">
-      <p>Ela foi crescendo... e ficando cada dia mais linda 😍</p>
-      <img src="https://i.imgur.com/fHyEMsl.jpg" alt="Foto infância (exemplo)">
-      <button onclick="mostrarProximaEtapa()">Próximo</button>
-    </div>
-
-    <div id="etapa-3" class="hidden">
-      <p>E então... nós dois nos encontramos 💑</p>
-      <img src="https://i.imgur.com/3kL9b8X.jpg" alt="Casal (exemplo)">
-      <button onclick="mostrarProximaEtapa()">Final</button>
-    </div>
-
-    <div id="final" class="hidden">
-      <h1>Feliz aniversário, minha princesa! 🎉</h1>
-      <p>Te amo mais do que palavras conseguem explicar. Obrigado por ser minha parceira de vida.</p>
-      <p>Com amor, Gui ❤️</p>
-    </div>
+  <div id="page2" class="hidden" style="background-image: url('FOTO-BEBE-AQUI.jpg');">
+    <h1>Vamos do começo, de quando você era uma bebê</h1>
+    <div class="relogio"></div>
+    <div class="clock" id="contador"></div>
   </div>
 
   <script>
-    let etapaAtual = 0;
-    const etapas = ["tela-inicial", "etapa-1", "etapa-2", "etapa-3", "final"];
-
-    function mostrarProximaEtapa() {
-      if (etapaAtual < etapas.length - 1) {
-        document.getElementById(etapas[etapaAtual]).classList.add("hidden");
-        etapaAtual++;
-        document.getElementById(etapas[etapaAtual]).classList.remove("hidden");
-      }
+    function mostrarPagina2() {
+      document.getElementById("page1").classList.add("hidden");
+      document.getElementById("page2").classList.remove("hidden");
     }
+
+    function atualizarContador() {
+      const agora = new Date();
+      const futuro = new Date("2025-06-14T00:00:00");
+      const diff = futuro - agora;
+
+      if (diff <= 0) {
+        document.getElementById("contador").innerHTML = "Ela já fez 18! 🎉";
+        return;
+      }
+
+      const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diff / (1000 * 60)) % 60);
+      const segundos = Math.floor((diff / 1000) % 60);
+
+      const idadeData = new Date(2025, 5, 14) - new Date(2007, 5, 14); // idade em milissegundos
+      const idadeAnos = Math.floor(idadeData / (1000 * 60 * 60 * 24 * 365.25));
+
+      document.getElementById("contador").innerHTML =
+        `Faltam <strong>${dias}</strong> dias, <strong>${horas}</strong> horas, <strong>${minutos}</strong> minutos e <strong>${segundos}</strong> segundos para o dia 14/06/2025.`;
+    }
+
+    setInterval(atualizarContador, 1000);
   </script>
 </body>
 </html>
+
